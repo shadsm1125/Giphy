@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Giphy</title>
+	<style type="text/css">
+		button,div,form,input {
+			margin:10px;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="http://bootswatch.com/cerulean/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Get Your Giphy On!</h1>
+
+		<div id="buttonsView">
+		</div>
+
+		<form id="giphy-form">
+			<label for="giphy-input">Add your own Giphy Here!</label>
+			<input type="text" id="giphy-input"><br> 
+
+			<input id="addGiphy" type="submit" value="Add">
+
+
+		</form>
+
+		<script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
+		<script type="text/javascript">
+
+
+			var topics = ["Golf", "Beach", "Work Out", "Pomeranians", "Fishing", "Cooking", "Batman", "Once Upon a Time in the West", "The Office"]; 
+
+			function displayGiphy() {
+			// body...
+			var $topic =  $(this).attr
+			("data-name");
+			var apiKey = "&api_key=dc6zaTOxFJmzC"
+			var limit = "&limit=10"
+			var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + $topic + apiKey + limit;
+			
+
+
+			$.ajax({url: queryURL, method: "GET"}).done(function(respsonse){
+
+				for (var i = 0; i < topics.length; i++) {
+					topics[i]
+				
+
+				
+				var $newGiphy = $("<div>")
+				var giphyRating = respsonse.data[i].rating; 
+				var $ratingDisplayed = $("<h1>" + giphyRating + "</h1>")
+				
+				$("#buttonsView").prepend($newGiphy)
+
+				}
+
+
+			}); 
+
+		
+
+
+
+		};
+
+		function renderButtons(){
+
+			$("#buttonsView").empty(); 
+
+			for (var i = 0; i < topics.length; i++) 
+			{
+				var $add = $("<button>"); 
+				$add.addClass("topic");
+				$add.attr("data-name", topics[i]);  
+				$add.text(topics[i]); 
+				$("#buttonsView").append($add); 
+			}
+		};
+
+		$("#addGiphy").on("click", function(){
+			var $topic = $("#giphy-input").val().trim(); 
+			topics.push($topic); 
+
+
+			renderButtons(); 
+
+			return false; 
+		}); 
+
+		$(document).on('click', '$topic', displayGiphy); 
+
+
+
+	</body>
+	</html>
