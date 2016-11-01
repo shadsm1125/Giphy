@@ -27,6 +27,8 @@
 
 		</form>
 
+		<div id="giphyView"></div>
+
 		<script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
 		<script type="text/javascript">
 
@@ -35,8 +37,7 @@
 
 			function displayGiphy() {
 			// body...
-			var $topic =  $(this).attr
-			("data-name");
+			var $topic =  $(this).attr("data-name");
 			var apiKey = "&api_key=dc6zaTOxFJmzC"
 			var limit = "&limit=10"
 			var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + $topic + apiKey + limit;
@@ -44,9 +45,6 @@
 
 
 			$.ajax({url: queryURL, method: "GET"}).done(function(respsonse){
-
-				for (var i = 0; i < topics.length; i++) {
-					topics[i]
 				
 
 				
@@ -54,18 +52,14 @@
 				var giphyRating = respsonse.data[i].rating; 
 				var $ratingDisplayed = $("<h1>" + giphyRating + "</h1>")
 				
-				$("#buttonsView").prepend($newGiphy)
+				$("#giphyView").prepend($newGiphy)
 
-				}
-
-
-			}); 
-
-		
+			}
 
 
+		}); 
 
-		};
+	};
 
 		function renderButtons(){
 
